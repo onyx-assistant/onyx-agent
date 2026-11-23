@@ -1,0 +1,29 @@
+# wrangler.toml — Worker « onyx-agent » (v1)
+# Déployé le 22 novembre 2026 ; procédure : voir ../DEPLOIEMENT.md.
+
+name = "onyx-agent"
+main = "src/index.js"
+compatibility_date = "2025-11-01"
+
+# Liaison Workers AI : donne accès à env.AI dans le code.
+[ai]
+binding = "AI"
+
+# Origines autorisées à appeler le Worker (CORS).
+# - Production : le site Cloudflare Pages du projet.
+# - Développement local : ajouter "http://localhost:8788" le temps des tests,
+#   puis le retirer avant la mise en ligne.
+[vars]
+ALLOWED_ORIGINS = "https://onyx-atelier.pages.dev"
+
+# Limite de débit sur /chat (backlog nº 26) : 20 requêtes par période
+# de 60 secondes et par adresse IP (clé = CF-Connecting-IP). Le compteur
+# vit dans le runtime Cloudflare, le temps de la fenêtre seulement :
+# aucune donnée visiteur n'est stockée par le Worker.
+[[ratelimits]]
+name = "LIMITE_CHAT"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 20
+  period = 60

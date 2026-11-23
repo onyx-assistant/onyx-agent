@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Démonstration — Agent visiteur « Onyx publique » (v1)</title>
+<link rel="stylesheet" href="widget.css">
+<style>
+  /* Styles de la PAGE DE DÉMONSTRATION seulement — pas du widget. */
+  body {
+    margin: 0;
+    padding: 48px 20px;
+    background: #161110;
+    color: #fff3e6;
+    font-family: "Nunito", system-ui, sans-serif;
+    line-height: 1.6;
+  }
+  main { max-width: 640px; margin: 0 auto; }
+  h1 { font-size: 1.5rem; }
+  .demo-note {
+    border: 1px solid #4a3728;
+    background: #221a16;
+    border-radius: 12px;
+    padding: 16px 20px;
+  }
+  code { color: #fc8b32; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Page de démonstration — agent visiteur Onyx (v1)</h1>
+  <div class="demo-note">
+    <p>Cette page sert uniquement à essayer la bulle de clavardage : clique
+    sur le visage d'Onyx, en bas à droite.</p>
+    <p>Tant que le Worker n'est pas déployé, l'adresse dans
+    <code>widget.js</code> (<code>WORKER_URL</code>) est un exemple : les
+    envois échoueront et le widget affichera son message de repli — c'est le
+    comportement attendu en démonstration locale.</p>
+    <p>En production, ce balisage + <code>widget.css</code> +
+    <code>widget.js</code> sont ajoutés à la page du site, juste avant
+    <code>&lt;/body&gt;</code>. Voir le README du paquet.</p>
+  </div>
+</main>
+
+<!-- ═══ Widget « Onyx publique » — début du bloc à intégrer au site ═══ -->
+<div class="onyx-agent">
+  <button class="onyx-agent__bulle" type="button"
+          aria-label="Discuter avec Onyx"
+          aria-expanded="false" aria-controls="onyx-panneau">
+    <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+      <circle cx="15" cy="14" r="8" fill="#c95d1d"/>
+      <circle cx="49" cy="14" r="8" fill="#c95d1d"/>
+      <circle cx="32" cy="34" r="24" fill="#fc8b32"/>
+      <ellipse cx="24" cy="30" rx="3.2" ry="4.6" fill="#161110"/>
+      <ellipse cx="40" cy="30" rx="3.2" ry="4.6" fill="#161110"/>
+      <ellipse cx="32" cy="43" rx="11" ry="8" fill="#fff3e6"/>
+      <ellipse cx="32" cy="39" rx="3" ry="2" fill="#8d2e0f"/>
+      <path d="M26 44 q6 5 12 0" stroke="#161110" stroke-width="2"
+            fill="none" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <section class="onyx-agent__panneau" id="onyx-panneau" hidden
+           role="dialog" aria-label="Conversation avec Onyx, personnage virtuel">
+    <header class="onyx-agent__entete">
+      <div class="onyx-agent__avatar" aria-hidden="true">
+        <svg viewBox="0 0 64 64" focusable="false">
+          <circle cx="15" cy="14" r="8" fill="#c95d1d"/>
+          <circle cx="49" cy="14" r="8" fill="#c95d1d"/>
+          <circle cx="32" cy="34" r="24" fill="#fc8b32"/>
+          <ellipse cx="24" cy="30" rx="3.2" ry="4.6" fill="#161110"/>
+          <ellipse cx="40" cy="30" rx="3.2" ry="4.6" fill="#161110"/>
+          <ellipse cx="32" cy="43" rx="11" ry="8" fill="#fff3e6"/>
+          <ellipse cx="32" cy="39" rx="3" ry="2" fill="#8d2e0f"/>
+          <path d="M26 44 q6 5 12 0" stroke="#161110" stroke-width="2"
+                fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="onyx-agent__identite">
+        <div class="onyx-agent__nom">Onyx</div>
+        <div class="onyx-agent__statut">Personnage virtuel · animé par IA</div>
+      </div>
+      <button class="onyx-agent__fermer" type="button"
+              aria-label="Fermer la conversation">&times;</button>
+    </header>
+
+    <div class="onyx-agent__messages" aria-live="polite"
+         aria-label="Messages de la conversation"></div>
+
+    <p class="onyx-agent__mention">Onyx est un personnage virtuel animé par IA.
+    La conversation n'est pas conservée.</p>
+
+    <form class="onyx-agent__form">
+      <label class="onyx-agent__sr" for="onyx-champ">Écris ta question à Onyx</label>
+      <input class="onyx-agent__champ" id="onyx-champ" type="text"
+             maxlength="500" placeholder="Écris ta question…" autocomplete="off">
+      <button class="onyx-agent__envoyer" type="submit">Envoyer</button>
+    </form>
+  </section>
+</div>
+<!-- ═══ Widget « Onyx publique » — fin du bloc ═══ -->
+
+<script src="widget.js"></script>
+</body>
+</html>

@@ -1,0 +1,282 @@
+/* widget.css — Bulle de clavardage « Onyx publique » (v1)
+   Couleurs et règles : charte graphique du projet (v0.8).
+   - Fond sombre #161110, surfaces #221A16 / #2C211B, bordures #4A3728.
+   - Accent orange #FC8B32 : sur fond sombre seulement; texte SUR l'orange
+     toujours sombre (#1D1208), jamais clair (contraste insuffisant).
+   - Texte principal crème #FFF3E6, texte atténué #D2BBA6.
+   - Police Nunito. Cibles tactiles ≥ 44 px. Focus visible partout. */
+
+/* Variables locales au widget (préfixe onyx- pour ne rien écraser). */
+.onyx-agent {
+  --onyx-fond: #161110;
+  --onyx-surface: #221a16;
+  --onyx-surface-2: #2c211b;
+  --onyx-bordure: #4a3728;
+  --onyx-accent: #fc8b32;
+  --onyx-texte: #fff3e6;
+  --onyx-atténue: #d2bba6;
+  --onyx-sur-accent: #1d1208;
+  --onyx-rayon: 16px;
+  font-family: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--onyx-texte);
+}
+
+/* --- Bulle (bouton d'ouverture) ----------------------------------------- */
+
+.onyx-agent__bulle {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9990;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: 2px solid var(--onyx-bordure);
+  border-radius: 50%;
+  background: var(--onyx-accent);
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.onyx-agent__bulle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+}
+
+.onyx-agent__bulle svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* --- Panneau de conversation -------------------------------------------- */
+
+.onyx-agent__panneau {
+  position: fixed;
+  right: 20px;
+  bottom: 88px;
+  z-index: 9991;
+  display: flex;
+  flex-direction: column;
+  width: min(380px, calc(100vw - 32px));
+  height: min(560px, calc(100dvh - 116px));
+  background: var(--onyx-fond);
+  border: 1px solid var(--onyx-bordure);
+  border-radius: var(--onyx-rayon);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+.onyx-agent__panneau[hidden] {
+  display: none;
+}
+
+/* En-tête */
+.onyx-agent__entete {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--onyx-surface);
+  border-bottom: 1px solid var(--onyx-bordure);
+}
+
+.onyx-agent__avatar {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--onyx-accent);
+  overflow: hidden;
+}
+
+.onyx-agent__avatar svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.onyx-agent__identite {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.onyx-agent__nom {
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.onyx-agent__statut {
+  font-size: 0.78rem;
+  color: var(--onyx-atténue);
+}
+
+.onyx-agent__fermer {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--onyx-texte);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.onyx-agent__fermer:hover {
+  background: var(--onyx-surface-2);
+  border-color: var(--onyx-bordure);
+}
+
+/* Zone des messages */
+.onyx-agent__messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.onyx-agent__msg {
+  max-width: 85%;
+  padding: 9px 12px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.onyx-agent__msg--agent {
+  align-self: flex-start;
+  background: var(--onyx-surface);
+  border: 1px solid var(--onyx-bordure);
+  border-bottom-left-radius: 4px;
+}
+
+.onyx-agent__msg--visiteur {
+  align-self: flex-end;
+  background: var(--onyx-accent);
+  color: var(--onyx-sur-accent);
+  border-bottom-right-radius: 4px;
+}
+
+/* Indicateur « Onyx écrit… » */
+.onyx-agent__saisie {
+  align-self: flex-start;
+  padding: 9px 12px;
+  font-size: 0.85rem;
+  color: var(--onyx-atténue);
+  font-style: italic;
+}
+
+/* Mention de transparence */
+.onyx-agent__mention {
+  margin: 0;
+  padding: 8px 12px;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--onyx-atténue);
+  background: var(--onyx-surface);
+  border-top: 1px solid var(--onyx-bordure);
+}
+
+/* Zone de saisie */
+.onyx-agent__form {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  background: var(--onyx-surface);
+  border-top: 1px solid var(--onyx-bordure);
+}
+
+.onyx-agent__champ {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--onyx-bordure);
+  border-radius: 10px;
+  background: var(--onyx-fond);
+  color: var(--onyx-texte);
+  font: inherit;
+  font-size: 0.95rem;
+}
+
+.onyx-agent__champ::placeholder {
+  color: var(--onyx-atténue);
+}
+
+.onyx-agent__envoyer {
+  flex: none;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 10px;
+  background: var(--onyx-accent);
+  color: var(--onyx-sur-accent);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.onyx-agent__envoyer:hover:not(:disabled) {
+  filter: brightness(1.07);
+}
+
+.onyx-agent__envoyer:disabled,
+.onyx-agent__champ:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+/* --- Accessibilité -------------------------------------------------------- */
+
+/* Focus visible, conforme aux règles de la charte (≥ 3:1 sur fond sombre). */
+.onyx-agent__bulle:focus-visible,
+.onyx-agent__fermer:focus-visible,
+.onyx-agent__champ:focus-visible,
+.onyx-agent__envoyer:focus-visible {
+  outline: 3px solid var(--onyx-accent);
+  outline-offset: 2px;
+}
+
+/* Texte réservé aux lecteurs d'écran. */
+.onyx-agent__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Petit écran : le panneau devient une feuille quasi plein écran. */
+@media (max-width: 480px) {
+  .onyx-agent__panneau {
+    right: 8px;
+    left: 8px;
+    bottom: 84px;
+    width: auto;
+    height: min(600px, calc(100dvh - 100px));
+  }
+  .onyx-agent__bulle {
+    right: 16px;
+    bottom: 16px;
+  }
+}
+
+/* Mouvement réduit : on coupe les transitions, comme le reste du site. */
+@media (prefers-reduced-motion: reduce) {
+  .onyx-agent__bulle {
+    transition: none;
+  }
+}
