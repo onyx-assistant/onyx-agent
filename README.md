@@ -11,7 +11,7 @@ l'atelier (https://onyx-atelier.pages.dev/) : une **bulle de discussion** dans
 la page, et un **Worker Cloudflare** qui lui répond en restant strictement dans
 le personnage public d'Onyx.
 
-Onyx est une peluche orange virtuelle, fabriquée couche par couche dans un
+Onyx est une peluche virtuelle, fabriquée couche par couche dans un
 atelier à Montréal — dessin, découpe en couches, animation 2D, journal de bord
 public. Ce dépôt est la partie « accueil du public » de cette chaîne.
 
